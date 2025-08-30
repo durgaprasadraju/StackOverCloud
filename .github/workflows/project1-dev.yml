@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main  # Trigger deployment on push to the main branch
+    paths:
+      - 'project1/**'  # This will trigger the workflow only if files in project1 are changed  
 
 jobs:
   deploy:
@@ -28,7 +30,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Deploy Lambda Function
+      - name: Deploy to Lambda (Project1)
         run: |
-          zip -r function.zip lambda/
-          aws lambda update-function-code --function-name my-lambda-function --zip-file fileb://function.zip
+          zip -r function.zip project1/lambda/
+          aws lambda update-function-code --function-name project1-main-lambda --zip-file fileb://function.zip
