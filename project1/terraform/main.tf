@@ -22,9 +22,8 @@ resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-# Optional: CloudWatch log group with retention
 resource "aws_cloudwatch_log_group" "lambda_logs" {
-  name              = "/aws/lambda/${aws_lambda_function.lambda.function_name}"
+  name              = "/aws/lambda/project1-main-lambda"
   retention_in_days = 14
 }
 
@@ -37,12 +36,8 @@ data "archive_file" "lambda_zip" {
 resource "aws_lambda_function" "lambda" {
   function_name = "project1-main-lambda"
   role          = aws_iam_role.lambda_exec.arn
-  handler       = "index.handler" # For Node.js
-  runtime       = "nodejs18.x"
+  handler       = "index.handler"      # adjust for your runtime
+  runtime       = "nodejs18.x"         # or python3.x, etc.
   filename      = data.archive_file.lambda_zip.output_path
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
-
-  depends_on = [
-    aws_cloudwatch_log_group.lambda_logs
-  ]
 }

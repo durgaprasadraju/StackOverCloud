@@ -40,7 +40,8 @@ build/Release
 # Terraform files
 **/.terraform/
 **/terraform.tfstate*
-**/lambda.zip
+**/terraform.tfstate.backup
+project1/terraform/lambda.zip
 
 # Dependency directories
 node_modules/
