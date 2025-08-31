@@ -12,7 +12,7 @@ resource "aws_lambda_function" "lambda" {
   function_name = "project1-main-lambda"
   
   # Use your existing IAM role ARN here (replace below)
-  role          = "arn:aws:iam::381492023386:role/project1-lambda-exec-role"
+  role          = "arn:aws:iam::339713042546:role/project1-lambda-exec-role"
   
   handler       = "index.handler"
   runtime       = "nodejs18.x"
